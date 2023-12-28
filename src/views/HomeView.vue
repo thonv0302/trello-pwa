@@ -1,17 +1,14 @@
 <script setup>
-import { collection, query, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { collection } from 'firebase/firestore'
+import { useFirestore, useCollection } from 'vuefire'
 
 const db = useFirestore()
-const q = query(collection(db, 'cafes'))
 
-const querySnapshot = await getDocs(q)
-querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  console.log(doc.id, ' => ', doc.data())
-})
+const cafeCollection = useCollection(collection(db, 'cafes'))
 </script>
 
 <template>
-  <main></main>
+  <main>
+    <pre>{{ cafeCollection }}</pre>
+  </main>
 </template>
